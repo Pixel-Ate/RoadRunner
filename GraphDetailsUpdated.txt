@@ -1,6 +1,6 @@
 Num_of_Nodes: 7  
 Name: Arrays  
-ConnectedNodes: ArrayBasics ArrayTypes ArrayOperations MemoryManagement SearchingTechniques SortingTechniques ArrayApplications Stacks  
+ConnectedNodes: ArrayBasics ArrayTypes ArrayOperations MemoryManagement SearchingTechniques SortingTechniques ArrayApplications Stacks 
 EdgeStart: Arrays  
 EdgeEnd: ArrayBasics  
 EdgeWeight: 1  
