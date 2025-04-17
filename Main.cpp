@@ -70,7 +70,10 @@ class RoadRunner{
                     if(nodes[i]!=' ')
                     wrd+=nodes[i];
                     else
-                    mp[wrd]=++n;
+                    {
+                        mp[wrd]=++n;
+                        wrd="";
+                    }
                     i+=1;
                 }
                 mp[wrd]=++n;
@@ -78,7 +81,7 @@ class RoadRunner{
             else if(line.rfind("EdgeStart: ",0)==0)
             {
                 edgeCount+=1;
-                string start=line.substr(11);
+                string parent=line.substr(11);
                 vector<int> a;
                 a.push_back(mp[parent]);
                 edgeDetails.push_back(a);
