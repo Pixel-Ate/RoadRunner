@@ -1,8 +1,8 @@
 Num_of_Nodes: 7  
 Name: Arrays  
-ConnectedNodes: ArrayBasics ArrayTypes ArrayOperations MemoryManagement SearchingTechniques SortingTechniques ArrayApplications Stacks 
-EdgeStart: Arrays  
-EdgeEnd: ArrayBasics  
+ConnectedNodes: ArrayBasics ArrayTypes ArrayOperations MemoryManagement SearchingTechniques SortingTechniques ArrayApplications Stacks
+EdgeStart: Arrays 
+EdgeEnd: ArrayBasics 
 EdgeWeight: 1  
 EdgeTimeNeeded: 2  
 EdgeStart: ArrayBasics  
@@ -44,7 +44,7 @@ EdgeTimeNeeded: 3
 *****  
 Num_of_Nodes: 7  
 Name: Stacks  
-ConnectedNodes: StackBasics StackImplementation StackOperations StackApplications StackMemory StackUseCases Arrays  
+ConnectedNodes: StackBasics StackImplementation StackOperations StackApplications StackMemory StackUseCases Arrays StackSTL
 EdgeStart: Stacks  
 EdgeEnd: StackBasics  
 EdgeWeight: 1  
@@ -62,7 +62,7 @@ EdgeEnd: Arrays
 EdgeWeight: 1  
 EdgeTimeNeeded: 2  
 EdgeStart: StackBasics  
-EdgeEnd: StackSTL  
+EdgeEnd: StackSTL  // notincluded
 EdgeWeight: 1  
 EdgeTimeNeeded: 2  
 EdgeStart: StackImplementation  
@@ -80,7 +80,7 @@ EdgeTimeNeeded: 5
 *****  
 Num_of_Nodes: 6  
 Name: Recursion  
-ConnectedNodes: RecursionBasics RecursionApplications RecursionOptimization DynamicProgramming Backtracking  
+ConnectedNodes: RecursionBasics RecursionApplications RecursionOptimization DynamicProgramming Backtracking
 EdgeStart: Recursion  
 EdgeEnd: RecursionBasics  
 EdgeWeight: 1  
@@ -112,7 +112,7 @@ EdgeTimeNeeded: 4
 *****  
 Num_of_Nodes: 7  
 Name: DynamicProgramming  
-ConnectedNodes: DPConcepts DPOptimization DPApplications Recursion Backtracking Greedy Algorithms  
+ConnectedNodes: DPConcepts DPOptimization DPApplications Recursion Backtracking GreedyAlgorithms //remove abbriveations(is greedy Algo same word?)
 EdgeStart: DynamicProgramming  
 EdgeEnd: DPConcepts  
 EdgeWeight: 1  
@@ -144,7 +144,7 @@ EdgeTimeNeeded: 4
 *****  
 Num_of_Nodes: 6  
 Name: Backtracking  
-ConnectedNodes: BacktrackingConcepts BacktrackingApplications Recursion DPApplications GreedyAlgorithms  
+ConnectedNodes: BacktrackingConcepts BacktrackingApplications Recursion DPApplications GreedyAlgorithms 
 EdgeStart: Backtracking  
 EdgeEnd: BacktrackingConcepts  
 EdgeWeight: 1  
@@ -168,7 +168,7 @@ EdgeTimeNeeded: 3
 *****  
 Num_of_Nodes: 6  
 Name: GreedyAlgorithms  
-ConnectedNodes: GreedyConcepts GreedyOptimization GreedyApplications DynamicProgramming Backtracking  
+ConnectedNodes: GreedyConcepts GreedyOptimization GreedyApplications DynamicProgramming Backtracking 
 EdgeStart: GreedyAlgorithms  
 EdgeEnd: GreedyConcepts  
 EdgeWeight: 1  
@@ -192,7 +192,7 @@ EdgeTimeNeeded: 3
 *****  
 Num_of_Nodes: 5  
 Name: SearchingTechniques  
-ConnectedNodes: LinearSearch BinarySearch BinarySearchApplications SearchingInStrings  
+ConnectedNodes: LinearSearch BinarySearch BinarySearchApplications SearchingInStrings 
 EdgeStart: SearchingTechniques  
 EdgeEnd: LinearSearch  
 EdgeWeight: 1  
@@ -212,7 +212,7 @@ EdgeTimeNeeded: 2
 *****  
 Num_of_Nodes: 6  
 Name: SortingTechniques  
-ConnectedNodes: BubbleSort SelectionSort InsertionSort MergeSort QuickSort HeapSort  
+ConnectedNodes: BubbleSort SelectionSort InsertionSort MergeSort QuickSort HeapSort 
 EdgeStart: SortingTechniques  
 EdgeEnd: BubbleSort  
 EdgeWeight: 1  
@@ -236,7 +236,7 @@ EdgeTimeNeeded: 5
 *****  
 Num_of_Nodes: 6  
 Name: GraphTheory  
-ConnectedNodes: GraphRepresentation GraphTraversal ShortestPath Algorithms GraphApplications  
+ConnectedNodes: GraphRepresentation GraphTraversal ShortestPath Algorithms GraphApplications 
 EdgeStart: GraphTheory  
 EdgeEnd: GraphRepresentation  
 EdgeWeight: 1  
@@ -260,7 +260,7 @@ EdgeTimeNeeded: 5
 *****  
 Num_of_Nodes: 7  
 Name: Trees  
-ConnectedNodes: TreeTraversal BinaryTree AVLTree BinarySearchTree TreeApplications  
+ConnectedNodes: TreeTraversal BinaryTree AVLTree BinarySearchTree TreeApplications 
 EdgeStart: Trees  
 EdgeEnd: TreeTraversal  
 EdgeWeight: 1  
@@ -284,7 +284,7 @@ EdgeTimeNeeded: 4
 *****  
 Num_of_Nodes: 6  
 Name: Heaps  
-ConnectedNodes: HeapOperations HeapApplications PriorityQueue  
+ConnectedNodes: HeapOperations HeapApplications PriorityQueue 
 EdgeStart: Heaps  
 EdgeEnd: HeapOperations  
 EdgeWeight: 2  
@@ -304,7 +304,7 @@ EdgeTimeNeeded: 3
 *****  
 Num_of_Nodes: 6  
 Name: LinkedLists  
-ConnectedNodes: LinkedListTraversal SinglyLinkedList DoublyLinkedList CircularLinkedList  
+ConnectedNodes: LinkedListTraversal SinglyLinkedList DoublyLinkedList CircularLinkedList 
 EdgeStart: LinkedLists  
 EdgeEnd: LinkedListTraversal  
 EdgeWeight: 1  
@@ -660,7 +660,7 @@ EdgeTimeNeeded: 5
 *****  
 Num_of_Nodes: 6  
 Name: FloydWarshall  
-ConnectedNodes: Algorithm Path Reconstruction  
+ConnectedNodes: Algorithm PathReconstruction  
 EdgeStart: FloydWarshall  
 EdgeEnd: Algorithm  
 EdgeWeight: 1  
