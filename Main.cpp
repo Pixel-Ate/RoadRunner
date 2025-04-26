@@ -6,14 +6,18 @@ class Graph{
     vector <vector<pair<int,int>>> adjMat; //Creating a matrix so that each node is accessible directly
                                  //no need to traverse the entire list of connections if we know which node we want to connect with
     public:
-    map <int,string> node_name;     //stores each node index's name
-    map <string,int> node_ind;    //stores each node num mapped to its name
+    int totalImportance;            //=totalNo of outDegrees
+    int totalTime;                 //=total edgeTime
+    map <int,string> node_name;    //stores each node index's name
+    map <string,int> node_ind;     //stores each node num mapped to its name
     map <string, pair<int, vector<string>>> outDegree; //strore outdegrees and all the reachable neighbours
 
     Graph(int n)
     {
         no_of_nodes=n;
         name_of_graph="";
+        totalImportance=0;
+        totalTime=0;
         adjMat.resize(n,vector<pair<int,int>>(n,{0,0}));  //storing pair as: edge weight, edge time taken
     }
     void addEdge(int s, int e, int wt, int time)
@@ -25,7 +29,7 @@ class Graph{
         }
     }
 
-    void outdegree()// gives n_o_n reachable, and their names;
+    void outdegree()// gives n_o_n reachable, and stores their names;
     {
         int m=0;
         vector<string>reachables;
@@ -42,10 +46,26 @@ class Graph{
                 reachables.clear();
            }
     }
+
+    void getTotalTime()
+    {
+        for(int i=0; i<nodes; i++)
+            for(int j=0; j<nodes; j++)
+                totalTime += adjMat[i][j].second;
+    }
+    void getTotalImportance()
+    {
+        for(auto i: outDegree)
+            totalImportance += i.second.first;
+    }
 };
 class RoadRunner{
     vector <Graph> topic;
     map <string, Graph> uni_map;    //storing each Graph mapped to its name
+    map<string, int> indegree;      //stores of each main Graph
+    map<string, int> subtopic_adjustedImportance;    //stores topicImportance = topicImportance + deeperSubtopicImportance for each main topic
+    map<string, set<string>> graphConnections;       //stores interconnections between main Graphs
+    
     public:
     void createGraphsUsingFile(string filename)
     {
@@ -144,5 +164,29 @@ class RoadRunner{
         }
         file.close();
         return;
-    } 
+    }
+
+    void computeIndegree()
+    {
+    for(auto graph: uni_map)
+        for(auto outDegree: graph.second.outDegree)
+        {
+            if(uni_map.find(outDegree.first) != uni_map.end())
+                graphConnections[graph.first].insert(outDegree.first);
+            for(auto neighbour: outDegree.second.second)
+                indegree[neighbour]++;
+        }
+    }
+
+    void computeAdjustedImportance()
+        {
+            for(auto graph: uni_map)
+            {
+                int imp = graph.second.totalImportance;
+                for(auto subGraph: graphConnections[graph.first])
+                    imp += uni_map[subGraph].totalImportance;
+                
+                subtopic_adjustedImportance[graph.first] = imp;
+            }
+        }
 };
