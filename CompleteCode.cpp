@@ -5,7 +5,7 @@ using namespace std;
 struct TrieNode
 {
     bool isEnd;
-    int freq;  //increase frequency of search // not used///????
+    //int freq;  //increase frequency of search // not used///????
     unordered_map<char, TrieNode*> child;
 
     TrieNode(): isEnd(false){}
@@ -211,7 +211,6 @@ vector<string> smartSearch(vector<string> topicsInput, vector<string> topics, Tr
             }
     }
     return results;
-
 }
 
 struct StackNode    //USED FOR DFS
@@ -485,7 +484,7 @@ class RoadRunner{
             └── Binary Search (Time: 6, Diff: 3) */
     }
 
-    void topicsPossibleInTime(string startNode, int timeConstraint)
+    void topicsPossibleInTime(string startNode, int timeConstraint, map<string, int>& present_skillset)
     {
         int nodeVal;
         string gname;
@@ -613,7 +612,7 @@ class RoadRunner{
     //     topics.push_back(a.first);
 }
 
-vector<string> KnapsackRecommendation(int maxTime, map<string, int> present_skillset) //need to exclude the already done topics
+vector<string> KnapsackRecommendation(int maxTime, map<string, int>& present_skillset) //need to exclude the already done topics
 {
     unordered_set<string> neighb;
     for(auto& [a,nonono]:present_skillset)
@@ -675,7 +674,7 @@ vector<string> KnapsackRecommendation(int maxTime, map<string, int> present_skil
 }
 
 
-vector <string> findMostOptimalPath(string start, string end, int alpha_val, int beta_val, map<string, int> presnt_skillset)
+vector <string> findMostOptimalPath(string start, string end, int alpha_val, int beta_val, map<string, int>& present_skillset)
 {
     map <string, int> vis,shortest; //map storing shortet distance of all uptil now visited
     priority_queue <pair<Graph, int>, vector<pair<Graph,int>>, decltype (compForPQDjikastra)> pq(compForPQDjikastra);  //pq storing all nodes with their minimum distances
@@ -827,20 +826,127 @@ unordered_map<string, float> computeHeuristic(string start, string goal, float a
 
 };
 
+vector<string> getAllUniqueTopics(RoadRunner& obj)
+{
+    unordered_set<string> uniqueTopics;
+    for(auto& [a,b]:obj.uni_map) 
+        for (auto& node : b.node_ind) 
+            uniqueTopics.insert(node.first);
+    return vector<string>(uniqueTopics.begin(), uniqueTopics.end());
+}
+
+void buildTrie(Trie& trie, vector<string>& topics)
+{
+    for(auto a: topics) 
+    {
+        string word=normalize(a);
+        trie.insert(word);
+    }
+}
+
+unordered_set<string> getCorrectedTopics(Trie& trie, vector<string>& allTopics) 
+{
+    vector<string> inputs;
+    string topic;
+
+    cout<< "Enter topics you already know(type 'done' to finish):\n";
+    while(cin>> topic && topic!="done") 
+        inputs.push_back(topic);
+
+    vector<string> corrected= smartSearch(inputs, allTopics, trie);
+    unordered_set<string> skillset(corrected.begin(), corrected.end());
+    return skillset;
+}
+
 int main()
 {
-    RoadRunner obj;
-    obj.createGraphsUsingFile("filename.txt");
 
-    for(Graph &g: obj.topic)
+    Trie trie;
+    RoadRunner roadrunner;
+    roadrunner.createGraphsUsingFile("filename.txt");
+
+    //ask user there things
+    unordered_set<string> present_skillset;
+    string startTopic;
+    int timeLimit = 0;
+
+    for(auto& graph:roadrunner.uni_map)
+    {
+        graph.second.outdegree();
+        graph.second.getTotalImportance();
+        graph.second.getTotalTime();
+    }
+
+    roadrunner.computeIndegree();
+    roadrunner.computeAdjustedImportance();
+
+    vector<string> allTopics=getAllUniqueTopics(roadrunner);
+    buildTrie(trie, allTopics);
+
+    unordered_set<string> present_skillset=getCorrectedTopics(trie, allTopics);
+
+    
+    roadrunner.completionOfATopic();//complete grpah
+    roadrunner.findMostOptimalPath();
+    roadrunner.KnapsackRecommendation();
+    roadrunner.topicsPossibleInTime();
+    roadrunner.printSubgraph();
+    //roadrunner.
+    //roadrunner.
+
+    
+
+    int choice;
+    do{
+        cout<< "\n===== Roadrunner Menu =====\n";
+        cout<< "1. View all topics\n";
+        cout<< "2. Mark topics as completed\n";
+        cout<< "3. Set time constraint\n";
+        cout<< "4. Set starting topic\n";
+        cout<< "5. Show reachable topics\n";
+        cout<< "0. Exit\n";
+        cout<< "Enter your choice: ";
+        cin>> choice;
+
+        
+        while (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Try again: ";
+            cin >> choice;
+        }
+
+        switch (choice) {
+            case 1:
+                // TODO: Display all topics
+                break;
+            case 2:
+                // TODO: Mark completed topics
+                break;
+            case 3:
+                // TODO: Set time limit
+                break;
+            case 4:
+                // TODO: Set starting topic
+                break;
+            case 5:
+                // TODO: Call traversal and print reachable topics
+                break;
+            case 0:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+
+    }while(choice!=0);
+
+    for(Graph &g: roadrunner.topic)
         {
             g.outdegree();
             g.getTotalTime();
             g.getTotalImportance();
-            obj.uni_map[g.name_of_graph]=g;
+            roadrunner.uni_map[g.name_of_graph]=g;
         }
     return 0;
 }
-
-
-
